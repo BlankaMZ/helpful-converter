@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">HelpfulConverter</string>
+    <string name="add_new">Add new</string>
+    <string name="convert">Convert</string>
+</resources>

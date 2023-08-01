@@ -7,6 +7,5 @@ import androidx.compose.ui.Modifier
 @Composable
 fun NewConverterScreen(
     modifier: Modifier = Modifier
-) {
-    Text("New Converter Screen")
+) {    Text("New Converter Screen")
 }

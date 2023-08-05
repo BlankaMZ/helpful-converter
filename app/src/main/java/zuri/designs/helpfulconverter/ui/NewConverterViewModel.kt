@@ -71,9 +71,10 @@ class NewConverterViewModel @Inject constructor(private val storageService: Stor
         viewModelScope.launch {
             storageService.save(
                 Converter(
-                    ingredientsWeight = ingredientsWeight.toInt(),
-                    productWeight = productWeight.toInt(),
-                    productCalories = if (calories.isEmpty()) 0 else calories.toInt()
+                    converterName = converterName.trim(),
+                    ingredientsWeight = ingredientsWeight.trim().toInt(),
+                    productWeight = productWeight.trim().toInt(),
+                    productCalories = if (calories.isEmpty()) 0 else calories.trim().toInt()
                 )
             )
             popUpScreen()

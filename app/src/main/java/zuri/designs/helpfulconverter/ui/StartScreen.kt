@@ -28,7 +28,7 @@ fun StartScreen(
         LazyColumn(content = {
             items(list.value) { listItem ->
                 Text(
-                    "Ingredients weight: ${listItem.ingredientsWeight}",
+                    "Converter name: ${listItem.converterName}",
                     modifier = Modifier.clickable { onExistingConverterClicked(listItem.uid) })
             }
         })

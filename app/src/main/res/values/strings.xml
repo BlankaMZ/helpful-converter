@@ -2,4 +2,19 @@
     <string name="app_name">HelpfulConverter</string>
     <string name="add_new">Add new</string>
     <string name="convert">Convert</string>
+
+    <string name="common_empty_string" />
+
+    <string name="add_new_converter">Add new converter</string>
+    <string name="name_of_converter">Name of the converter</string>
+    <string name="total_weight_of_ingredients">Total weight of ingredients</string>
+    <string name="weight_of_final_product">Weight of final product</string>
+    <string name="total_amount_of_calories">Total amount of calories</string>
+    <string name="save">Save</string>
+
+    <string name="error_number_must_be_grater_then_0">Number must be greater then 0</string>
+    <string name="error_please_enter_number">Please enter a number</string>
+    <string name="error_please_enter_name">Please enter the name</string>
+
+
 </resources>

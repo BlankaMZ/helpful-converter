@@ -5,8 +5,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import zuri.designs.helpfulconverter.R
+import zuri.designs.helpfulconverter.data.Converter
 import zuri.designs.helpfulconverter.service.StorageService
 import javax.inject.Inject
 
@@ -60,7 +63,21 @@ class NewConverterViewModel @Inject constructor(private val storageService: Stor
 
     fun onCaloriesChanged(newValue: String) {
         calories = newValue
-        cError = if (newValue == "") R.string.common_empty_string else checkIfItIsNumberError(newValue)
+        cError =
+            if (newValue == "") R.string.common_empty_string else checkIfItIsNumberError(newValue)
+    }
+
+    fun saveTheConverter(popUpScreen: () -> Unit) {
+        viewModelScope.launch {
+            storageService.save(
+                Converter(
+                    ingredientsWeight = ingredientsWeight.toInt(),
+                    productWeight = productWeight.toInt(),
+                    productCalories = if (calories.isEmpty()) 0 else calories.toInt()
+                )
+            )
+            popUpScreen()
+        }
     }
 }
 

@@ -32,7 +32,9 @@ fun HelpfulConverterApp(
                 )
             }
             composable(ConverterScreen.NewConverter.name) {
-                NewConverterScreen()
+                NewConverterScreen(
+                    popUpScreen = { navController.popBackStack() }
+                )
             }
             composable(
                 route = "${ConverterScreen.UseConverter.name}$CONVERTER_ID_ARG",

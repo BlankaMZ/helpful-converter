@@ -29,6 +29,7 @@ import zuri.designs.helpfulconverter.R
 
 @Composable
 fun NewConverterScreen(
+    popUpScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: NewConverterViewModel = hiltViewModel(),
 ) {
@@ -95,7 +96,7 @@ fun NewConverterScreen(
                 singleLine = true
             )
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { viewModel.saveTheConverter(popUpScreen) },
                 enabled = viewModel.buttonEnabled,
                 modifier = Modifier
                     .widthIn(160.dp)

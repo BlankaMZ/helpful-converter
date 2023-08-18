@@ -13,7 +13,7 @@ interface ConverterDao {
     fun getAll(): Flow<List<Converter>>
 
     @Query("SELECT * FROM converters WHERE uid LIKE :id LIMIT 1")
-    fun getOneWithGivenId(id: Int): Flow<Converter>
+    fun getOneWithGivenId(id: Int): Converter
 
     @Insert
     suspend fun insert(converter: Converter)

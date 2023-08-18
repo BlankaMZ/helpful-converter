@@ -7,7 +7,7 @@ interface StorageService {
 
     val converters: Flow<List<Converter>>
 
-    suspend fun getConverter(converterId: Int): Converter?
+    suspend fun getConverter(converterId: Int): Converter
 
     suspend fun save(converter: Converter)
 

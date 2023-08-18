@@ -1,6 +1,7 @@
 package zuri.designs.helpfulconverter.service.impl
 
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collectLatest
 import zuri.designs.helpfulconverter.data.Converter
 import zuri.designs.helpfulconverter.data.ConverterDao
 import zuri.designs.helpfulconverter.service.StorageService
@@ -13,8 +14,8 @@ constructor(private val converterDao: ConverterDao) :
     override val converters: Flow<List<Converter>>
         get() = converterDao.getAll()
 
-    override suspend fun getConverter(converterId: Int): Converter? {
-        TODO("Not yet implemented")
+    override suspend fun getConverter(converterId: Int): Converter {
+        return converterDao.getOneWithGivenId(converterId)
     }
 
     override suspend fun save(converter: Converter) =

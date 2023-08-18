@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import zuri.designs.helpfulconverter.R
 import zuri.designs.helpfulconverter.data.Converter
@@ -68,7 +69,7 @@ class NewConverterViewModel @Inject constructor(private val storageService: Stor
     }
 
     fun saveTheConverter(popUpScreen: () -> Unit) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             storageService.save(
                 Converter(
                     converterName = converterName.trim(),

@@ -1,5 +1,6 @@
 package zuri.designs.helpfulconverter.ui
 
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -20,11 +21,11 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
     var converterName by mutableStateOf("")
         private set
 
-    var realToAppWeightFactor by mutableStateOf(0F)
-        private set
+    private var realToAppWeightFactor by mutableStateOf(0F)
 
-    var appToRealWeightFactor by mutableStateOf(0F)
-        private set
+    private var appToRealWeightFactor by mutableStateOf(0F)
+
+    private var caloriesToAppWeightFactor by mutableStateOf(0F)
 
     var realWeight by mutableStateOf("")
         private set
@@ -38,6 +39,11 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
     var awError by mutableStateOf(R.string.common_empty_string)
         private set
 
+    val caloriesForGivenAppWeight by derivedStateOf {
+        if (appWeight.isNotEmpty() && awError.hasEmptyString() && rwError.hasEmptyString()) (appWeight.toInt() * caloriesToAppWeightFactor).roundToInt()
+        else 0
+    }
+
     fun getConverter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val converter = storageService.getConverter(id)
@@ -46,6 +52,8 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
                 calculateTheFactor(converter.productWeight, converter.ingredientsWeight)
             appToRealWeightFactor =
                 calculateTheFactor(converter.ingredientsWeight, converter.productWeight)
+            caloriesToAppWeightFactor =
+                calculateTheFactor(converter.productCalories, converter.ingredientsWeight)
         }
     }
 

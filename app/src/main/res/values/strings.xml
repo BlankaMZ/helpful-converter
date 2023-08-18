@@ -18,6 +18,7 @@
 
     <string name="weight_in_the_app">Weight in the app (g)</string>
     <string name="real_weight_of_product">Real weight of the product (g)</string>
+    <string name="number_of_calories">"Number of calories: "</string>
 
 
 </resources>

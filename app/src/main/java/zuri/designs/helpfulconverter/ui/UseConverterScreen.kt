@@ -6,6 +6,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.outlined.Delete
+import androidx.compose.material.icons.outlined.Edit
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -33,7 +38,24 @@ fun UseConverterScreen(
     val scrollState = rememberScrollState()
 
     Scaffold(
-        topBar = { TopAppBar(title = { Text(viewModel.converterName) }) },
+        topBar = {
+            TopAppBar(
+                title = { Text(viewModel.converterName) },
+                actions = {
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(imageVector = Icons.Outlined.Edit, contentDescription = "Edit")
+                    }
+
+                    IconButton(onClick = {
+
+                    }) {
+                        Icon(imageVector = Icons.Outlined.Delete, contentDescription = "Delete")
+                    }
+                }
+            )
+        },
         modifier = modifier.fillMaxSize()
     ) { paddingValues ->
 
@@ -69,6 +91,12 @@ fun UseConverterScreen(
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 singleLine = true
             )
+            if (viewModel.caloriesForGivenAppWeight != 0) {
+                Text(
+                    stringResource(id = R.string.number_of_calories) + viewModel.caloriesForGivenAppWeight,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+            }
         }
     }
 }

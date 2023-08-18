@@ -23,8 +23,8 @@ import zuri.designs.helpfulconverter.R
 @Composable
 fun UseConverterScreen(
     converterId: String,
+    modifier: Modifier = Modifier,
     viewModel: UseConverterViewModel = hiltViewModel(),
-    modifier: Modifier = Modifier
 ) {
     LaunchedEffect(Unit) {
         viewModel.getConverter(converterId.toInt())

@@ -17,6 +17,9 @@ import kotlin.math.roundToInt
 class UseConverterViewModel @Inject constructor(private val storageService: StorageService) :
     ViewModel() {
 
+    var converterName by mutableStateOf("")
+        private set
+
     var realToAppWeightFactor by mutableStateOf(0F)
         private set
 
@@ -38,6 +41,7 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
     fun getConverter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val converter = storageService.getConverter(id)
+            converterName = converter.converterName
             realToAppWeightFactor =
                 calculateTheFactor(converter.productWeight, converter.ingredientsWeight)
             appToRealWeightFactor =

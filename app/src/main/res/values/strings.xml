@@ -16,8 +16,8 @@
     <string name="error_please_enter_number">Please enter a number</string>
     <string name="error_please_enter_name">Please enter the name</string>
 
-    <string name="weight_in_the_app">Weight in the app</string>
-    <string name="real_weight_of_product">Real weight of the product</string>
+    <string name="weight_in_the_app">Weight in the app (g)</string>
+    <string name="real_weight_of_product">Real weight of the product (g)</string>
 
 
 </resources>

@@ -44,7 +44,7 @@ fun UseConverterScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(viewModel.converterName) },
+                title = { Text(viewModel.converter.converterName) },
                 actions = {
                     IconButton(onClick = {
 

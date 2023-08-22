@@ -31,6 +31,7 @@ import zuri.designs.helpfulconverter.R
 @Composable
 fun UseConverterScreen(
     converterId: String,
+    popUpScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UseConverterViewModel = hiltViewModel(),
 ) {
@@ -105,7 +106,7 @@ fun UseConverterScreen(
             if (viewModel.dialogVisible) {
                 DeleteDialog(
                     onDismiss = { viewModel.hideDialog() },
-                    onConfirm = {}
+                    onConfirm = { viewModel.deleteTheConverter(popUpScreen)}
                 )
             }
         }

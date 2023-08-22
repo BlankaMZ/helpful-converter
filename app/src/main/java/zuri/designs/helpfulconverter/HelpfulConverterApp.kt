@@ -43,7 +43,8 @@ fun HelpfulConverterApp(
                 })
             ) {
                 UseConverterScreen(
-                    converterId = it.arguments?.getString(CONVERTER_ID) ?: CONVERTER_DEFAULT_ID
+                    converterId = it.arguments?.getString(CONVERTER_ID) ?: CONVERTER_DEFAULT_ID,
+                    popUpScreen = { navController.popBackStack() }
                 )
             }
         }

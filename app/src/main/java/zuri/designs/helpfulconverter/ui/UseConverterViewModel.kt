@@ -9,7 +9,9 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import zuri.designs.helpfulconverter.R
+import zuri.designs.helpfulconverter.data.Converter
 import zuri.designs.helpfulconverter.service.StorageService
 import javax.inject.Inject
 import kotlin.math.roundToInt
@@ -19,6 +21,16 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
     ViewModel() {
 
     var converterName by mutableStateOf("")
+        private set
+
+    var converter: Converter by mutableStateOf(
+        Converter(
+            converterName = "",
+            ingredientsWeight = 0,
+            productWeight = 0,
+            productCalories = 0
+        )
+    )
         private set
 
     private var realToAppWeightFactor by mutableStateOf(0F)
@@ -49,14 +61,18 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
 
     fun getConverter(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            val converter = storageService.getConverter(id)
-            converterName = converter.converterName
+            val converterFromDb = storageService.getConverter(id)
+            converter = converterFromDb
+            converterName = converterFromDb.converterName
             realToAppWeightFactor =
-                calculateTheFactor(converter.productWeight, converter.ingredientsWeight)
+                calculateTheFactor(converterFromDb.productWeight, converterFromDb.ingredientsWeight)
             appToRealWeightFactor =
-                calculateTheFactor(converter.ingredientsWeight, converter.productWeight)
+                calculateTheFactor(converterFromDb.ingredientsWeight, converterFromDb.productWeight)
             caloriesToAppWeightFactor =
-                calculateTheFactor(converter.productCalories, converter.ingredientsWeight)
+                calculateTheFactor(
+                    converterFromDb.productCalories,
+                    converterFromDb.ingredientsWeight
+                )
         }
     }
 
@@ -88,6 +104,18 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
 
     fun hideDialog() {
         dialogVisible = false
+    }
+
+    fun deleteTheConverter(popUpScreen: () -> Unit) {
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                storageService.delete(
+                    converter
+                )
+            }
+            popUpScreen()
+        }
+
     }
 
 }

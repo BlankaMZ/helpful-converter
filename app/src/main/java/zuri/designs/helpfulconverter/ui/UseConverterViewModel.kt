@@ -39,6 +39,9 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
     var awError by mutableStateOf(R.string.common_empty_string)
         private set
 
+    var dialogVisible by mutableStateOf(false)
+        private set
+
     val caloriesForGivenAppWeight by derivedStateOf {
         if (appWeight.isNotEmpty() && awError.hasEmptyString() && rwError.hasEmptyString()) (appWeight.toInt() * caloriesToAppWeightFactor).roundToInt()
         else 0
@@ -77,6 +80,14 @@ class UseConverterViewModel @Inject constructor(private val storageService: Stor
 
         }
         awError = checkIfItIsNumberError(appWeight)
+    }
+
+    fun showDialog() {
+        dialogVisible = true
+    }
+
+    fun hideDialog() {
+        dialogVisible = false
     }
 
 }

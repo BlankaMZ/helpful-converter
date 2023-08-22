@@ -4,6 +4,9 @@
     <string name="convert">Convert</string>
 
     <string name="common_empty_string" />
+    <string name="common_be_careful">Be careful!</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">No</string>
 
     <string name="add_new_converter">Add new converter</string>
     <string name="name_of_converter">Name of the converter</string>
@@ -19,6 +22,7 @@
     <string name="weight_in_the_app">Weight in the app (g)</string>
     <string name="real_weight_of_product">Real weight of the product (g)</string>
     <string name="number_of_calories">"Number of calories: "</string>
+    <string name="info_about_deleting_converter">Are you sure you want to completely delete this converter?</string>
 
 
 </resources>

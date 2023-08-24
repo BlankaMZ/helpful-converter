@@ -8,6 +8,7 @@
     <string name="common_be_careful">Be careful!</string>
     <string name="common_yes">Yes</string>
     <string name="common_no">No</string>
+    <string name="common_search">Search</string>
 
     <string name="add_new_converter">Add new converter</string>
     <string name="name_of_converter">Name of the converter</string>

@@ -11,4 +11,8 @@ data class Converter(
     @ColumnInfo(name = "ingredients_weight") val ingredientsWeight: Int,
     @ColumnInfo(name = "product_weight") val productWeight: Int,
     @ColumnInfo(name = "product_calories") val productCalories: Int
-)
+) {
+    fun doesMatchSearchQuery(query: String): Boolean {
+        return converterName.contains(query, ignoreCase = true)
+    }
+}

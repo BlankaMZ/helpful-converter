@@ -21,6 +21,9 @@ constructor(private val converterDao: ConverterDao) :
     override suspend fun save(converter: Converter) =
         converterDao.insert(converter)
 
+    override suspend fun update(converter: Converter) =
+        converterDao.update(converter)
+
     override suspend fun delete(converter: Converter) = converterDao.delete(converter)
 
 }

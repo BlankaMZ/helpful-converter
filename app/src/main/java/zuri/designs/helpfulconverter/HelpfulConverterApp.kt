@@ -43,7 +43,21 @@ fun HelpfulConverterApp(
                 })
             ) {
                 UseConverterScreen(
-                    converterId = it.arguments?.getString(CONVERTER_ID) ?: CONVERTER_DEFAULT_ID,
+                    converterId = (it.arguments?.getString(CONVERTER_ID) ?: CONVERTER_DEFAULT_ID).toInt(),
+                    onEditConverterButtonClicked = { converterId ->
+                        navController.navigate("${ConverterScreen.EditConverter.name}?$CONVERTER_ID=$converterId")
+                    },
+                    popUpScreen = { navController.popBackStack() }
+                )
+            }
+            composable(
+                route = "${ConverterScreen.EditConverter.name}$CONVERTER_ID_ARG",
+                arguments = listOf(navArgument(CONVERTER_ID) {
+                    defaultValue = CONVERTER_DEFAULT_ID
+                })
+            ) {
+                NewConverterScreen(
+                    converterId = (it.arguments?.getString(CONVERTER_ID) ?: CONVERTER_DEFAULT_ID).toInt(),
                     popUpScreen = { navController.popBackStack() }
                 )
             }

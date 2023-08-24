@@ -11,6 +11,8 @@ interface StorageService {
 
     suspend fun save(converter: Converter)
 
+    suspend fun update(converter: Converter)
+
     suspend fun delete(converter: Converter)
 
 }

@@ -30,13 +30,14 @@ import zuri.designs.helpfulconverter.R
 
 @Composable
 fun UseConverterScreen(
-    converterId: String,
+    converterId: Int,
+    onEditConverterButtonClicked: (Int) -> Unit,
     popUpScreen: () -> Unit,
     modifier: Modifier = Modifier,
     viewModel: UseConverterViewModel = hiltViewModel(),
 ) {
     LaunchedEffect(Unit) {
-        viewModel.getConverter(converterId.toInt())
+        viewModel.getConverter(converterId)
     }
 
     val scrollState = rememberScrollState()
@@ -47,7 +48,7 @@ fun UseConverterScreen(
                 title = { Text(viewModel.converter.converterName) },
                 actions = {
                     IconButton(onClick = {
-
+                        onEditConverterButtonClicked(viewModel.converter.uid)
                     }) {
                         Icon(imageVector = Icons.Outlined.Edit, contentDescription = "Edit")
                     }
@@ -106,7 +107,7 @@ fun UseConverterScreen(
             if (viewModel.dialogVisible) {
                 DeleteDialog(
                     onDismiss = { viewModel.hideDialog() },
-                    onConfirm = { viewModel.deleteTheConverter(popUpScreen)}
+                    onConfirm = { viewModel.deleteTheConverter(popUpScreen) }
                 )
             }
         }

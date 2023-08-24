@@ -13,6 +13,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -31,12 +32,19 @@ import zuri.designs.helpfulconverter.R
 fun NewConverterScreen(
     popUpScreen: () -> Unit,
     modifier: Modifier = Modifier,
+    converterId: Int? = null,
     viewModel: NewConverterViewModel = hiltViewModel(),
 ) {
+
     val scrollState = rememberScrollState()
 
+    LaunchedEffect(Unit) {
+        viewModel.getConverter(converterId)
+    }
+
+
     Scaffold(
-        topBar = { TopAppBar(title = { Text(stringResource(R.string.add_new_converter)) }) },
+        topBar = { TopAppBar(title = { Text(stringResource(if (viewModel.newConverter) R.string.add_new_converter else R.string.edit_converter) + if (viewModel.newConverter) "" else " " + viewModel.converterName) }) },
         modifier = modifier.fillMaxSize()
     ) { paddingValues ->
 
@@ -96,13 +104,13 @@ fun NewConverterScreen(
                 singleLine = true
             )
             Button(
-                onClick = { viewModel.saveTheConverter(popUpScreen) },
+                onClick = { viewModel.saveTheConverter(converterId, popUpScreen) },
                 enabled = viewModel.buttonEnabled,
                 modifier = Modifier
                     .widthIn(160.dp)
                     .padding(vertical = 16.dp)
             ) {
-                Text(stringResource(id = R.string.save))
+                Text(stringResource(id = if (viewModel.newConverter) R.string.save else R.string.update))
             }
         }
     }

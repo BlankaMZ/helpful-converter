@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
+import androidx.room.Update
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -17,6 +18,9 @@ interface ConverterDao {
 
     @Insert
     suspend fun insert(converter: Converter)
+
+    @Update
+    suspend fun update(converter: Converter)
 
     @Delete
     fun delete(converter: Converter)

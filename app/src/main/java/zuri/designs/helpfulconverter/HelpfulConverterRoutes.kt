@@ -6,7 +6,8 @@ import androidx.annotation.StringRes
 enum class ConverterScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
     NewConverter(title = R.string.add_new),
-    UseConverter(title = R.string.convert)
+    UseConverter(title = R.string.convert),
+    EditConverter(title = R.string.edit_converter)
 }
 
 const val CONVERTER_ID = "converterId"

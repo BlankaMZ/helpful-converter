@@ -7,6 +7,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import zuri.designs.helpfulconverter.R
 import zuri.designs.helpfulconverter.data.Converter
@@ -16,6 +17,9 @@ import javax.inject.Inject
 @HiltViewModel
 class NewConverterViewModel @Inject constructor(private val storageService: StorageService) :
     ViewModel() {
+
+    var newConverter by mutableStateOf(true)
+        private set
 
     var converterName by mutableStateOf("")
         private set
@@ -67,17 +71,45 @@ class NewConverterViewModel @Inject constructor(private val storageService: Stor
             if (newValue == "") R.string.common_empty_string else checkIfItIsNumberError(newValue)
     }
 
-    fun saveTheConverter(popUpScreen: () -> Unit) {
+    fun saveTheConverter(
+        converterId: Int?,
+        popUpScreen: () -> Unit
+    ) {
         viewModelScope.launch {
-            storageService.save(
-                Converter(
-                    converterName = converterName.trim(),
-                    ingredientsWeight = ingredientsWeight.trim().toInt(),
-                    productWeight = productWeight.trim().toInt(),
-                    productCalories = if (calories.isEmpty()) 0 else calories.trim().toInt()
+            if (converterId != null) {
+                storageService.update(
+                    Converter(
+                        uid = converterId,
+                        converterName = converterName.trim(),
+                        ingredientsWeight = ingredientsWeight.trim().toInt(),
+                        productWeight = productWeight.trim().toInt(),
+                        productCalories = if (calories.isEmpty()) 0 else calories.trim().toInt()
+                    )
                 )
-            )
+            } else {
+                storageService.save(
+                    Converter(
+                        converterName = converterName.trim(),
+                        ingredientsWeight = ingredientsWeight.trim().toInt(),
+                        productWeight = productWeight.trim().toInt(),
+                        productCalories = if (calories.isEmpty()) 0 else calories.trim().toInt()
+                    )
+                )
+            }
             popUpScreen()
+        }
+    }
+
+    fun getConverter(id: Int?) {
+        if (id != null) {
+            viewModelScope.launch(Dispatchers.IO) {
+                val converterFromDb = storageService.getConverter(id)
+                converterName = converterFromDb.converterName
+                ingredientsWeight = converterFromDb.ingredientsWeight.toString()
+                productWeight = converterFromDb.productWeight.toString()
+                calories = converterFromDb.productCalories.toString()
+                newConverter = false
+            }
         }
     }
 }

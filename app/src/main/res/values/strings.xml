@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">HelpfulConverter</string>
     <string name="add_new">Add new</string>
+    <string name="edit_converter">Edit</string>
     <string name="convert">Convert</string>
 
     <string name="common_empty_string" />
@@ -14,6 +15,7 @@
     <string name="weight_of_final_product">Real weight of final product (g)</string>
     <string name="total_amount_of_calories">Total amount of calories (kcal)</string>
     <string name="save">Save</string>
+    <string name="update">Update</string>
 
     <string name="error_number_must_be_grater_then_0">Number must be greater then 0</string>
     <string name="error_please_enter_number">Please enter a number</string>

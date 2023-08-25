@@ -3,15 +3,14 @@ package zuri.designs.helpfulconverter.ui
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.Button
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
@@ -36,43 +35,49 @@ fun StartScreen(
     val isSearching by viewModel.isSearching.collectAsState()
     val list = viewModel.converters.collectAsState(initial = emptyList())
 
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
-        TextField(
-            value = searchText,
-            onValueChange = viewModel::onSearchTextChange,
-            modifier = Modifier.fillMaxWidth(),
-            placeholder = { Text(text = stringResource(id = R.string.common_search)) }
-        )
-        Spacer(modifier = Modifier.height(16.dp))
-        if (isSearching) {
-            Box(modifier = Modifier.fillMaxSize()) {
-                CircularProgressIndicator(
-                    modifier = Modifier.align(Alignment.Center)
-                )
+    Scaffold(
+        floatingActionButton = {
+            FloatingActionButton(onClick = onNewConverterButtonClicked) {
+                Text(" + ", modifier = Modifier.padding(8.dp))
             }
-        } else {
-            LazyColumn(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1F),
-                content = {
-                    items(list.value) { listItem ->
-                        Text(
-                            listItem.converterName,
-                            modifier = Modifier
-                                .fillMaxWidth()
-                                .clickable { onExistingConverterClicked(listItem.uid) }
-                                .padding(16.dp)
-                        )
-                    }
-                })
-        }
-        Button(onClick = onNewConverterButtonClicked) {
-            Text("New Converter")
+        },
+        modifier = modifier.fillMaxSize()
+    ) { paddingValues ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues)
+        ) {
+            TextField(
+                value = searchText,
+                onValueChange = viewModel::onSearchTextChange,
+                modifier = Modifier.fillMaxWidth().padding(16.dp),
+                placeholder = { Text(text = stringResource(id = R.string.common_search)) }
+            )
+            if (isSearching) {
+                Box(modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.align(Alignment.Center)
+                    )
+                }
+            } else {
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                        .weight(1F),
+                    content = {
+                        items(list.value) { listItem ->
+                            Text(
+                                listItem.converterName,
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .clickable { onExistingConverterClicked(listItem.uid) }
+                                    .padding(16.dp)
+                            )
+                        }
+                    })
+            }
         }
     }
 }

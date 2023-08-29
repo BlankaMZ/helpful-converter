@@ -83,6 +83,8 @@ dependencies {
     androidTestImplementation("com.google.dagger:hilt-android-testing:2.43.2")
     kaptAndroidTest("com.google.dagger:hilt-compiler:2.44")
 
+    testImplementation ("junit:junit:4.13.2")
+
     androidTestImplementation ("junit:junit:4.13.2")
     androidTestImplementation ("androidx.test.ext:junit:1.1.5")
     androidTestImplementation ("androidx.test.espresso:espresso-core:3.5.1")

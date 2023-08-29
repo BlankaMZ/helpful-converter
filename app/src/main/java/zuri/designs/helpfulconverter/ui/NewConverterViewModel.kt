@@ -115,7 +115,7 @@ class NewConverterViewModel @Inject constructor(private val storageService: Stor
 }
 
 fun checkIfItIsNumberError(newValue: String): Int = try {
-    if (newValue.trim().toInt() <= 0) R.string.error_number_must_be_grater_then_0
+    if (newValue.trim().toInt() <= 0) R.string.error_number_must_be_greater_then_0
     else R.string.common_empty_string
 } catch (e: NumberFormatException) {
     R.string.error_please_enter_number

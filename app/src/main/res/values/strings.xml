@@ -18,7 +18,7 @@
     <string name="save">Save</string>
     <string name="update">Update</string>
 
-    <string name="error_number_must_be_grater_then_0">Number must be greater then 0</string>
+    <string name="error_number_must_be_greater_then_0">Number must be greater then 0</string>
     <string name="error_please_enter_number">Please enter a number</string>
     <string name="error_please_enter_name">Please enter the name</string>
 

@@ -1,7 +1,8 @@
-package zuri.designs.helpfulconverter
+package zuri.designs.helpfulconverter.utils
 
 import org.junit.Assert
 import org.junit.Test
+import zuri.designs.helpfulconverter.R
 import zuri.designs.helpfulconverter.ui.calculateTheFactor
 import zuri.designs.helpfulconverter.ui.checkIfItIsNumberError
 
@@ -39,6 +40,8 @@ class CalculationsUnitTest {
 
     @Test
     fun checkIfItIsNumberError_numberStringLessThen0_error_numberMustBeGreaterThen0(){
-        Assert.assertEquals(checkIfItIsNumberError("-7 "), R.string.error_number_must_be_greater_then_0)
+        Assert.assertEquals(checkIfItIsNumberError("-7 "),
+            R.string.error_number_must_be_greater_then_0
+        )
     }
 }
